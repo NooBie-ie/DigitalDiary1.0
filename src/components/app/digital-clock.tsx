@@ -21,7 +21,7 @@ export default function DigitalClock() {
       <p className="font-mono text-2xl font-bold animated-gradient-text">
         {format(time, 'hh:mm:ss a')}
       </p>
-      <p className="text-sm animated-gradient-text">
+      <p className="text-lg animated-gradient-text">
         {format(time, 'eeee, MMMM do yyyy')}
       </p>
     </div>
