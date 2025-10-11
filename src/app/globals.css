@@ -68,6 +68,29 @@
     background-size: 200% auto;
     animation: gradient-text-animation 10s ease-in-out infinite;
   }
+
+  .animated-gradient-border {
+    position: relative;
+    border-radius: 0.5rem;
+    padding: 2px;
+    overflow: hidden;
+  }
+
+  .animated-gradient-border::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    margin: -2px;
+    border-radius: inherit; 
+    background: linear-gradient(-45deg, #8A2BE2, #00FFFF);
+    background-size: 400% 400%;
+    animation: gradient-animation 10s ease infinite;
+  }
+
+  .dark .animated-gradient-border::before {
+    background: linear-gradient(-45deg, #00FFFF, #8A2BE2);
+  }
 }
 
 @keyframes gradient-animation {
@@ -89,13 +112,13 @@
 }
 
 .animated-gradient {
-  background: linear-gradient(-45deg, hsl(340, 82%, 85%), hsl(0, 0%, 100%), hsl(30, 90%, 85%), hsl(60, 100%, 85%));
-  background-size: 400% 400%;
-  animation: gradient-animation 15s ease infinite;
+    background: linear-gradient(-45deg, #ffc0cb, #ffffff, #ff0000, #ffa500, #ffff00);
+    background-size: 400% 400%;
+    animation: gradient-animation 10s ease infinite;
 }
 
 .dark .animated-gradient {
-    background: linear-gradient(-45deg, hsl(240, 70%, 50%), hsl(270, 70%, 50%), hsl(300, 70%, 50%), hsl(180, 70%, 50%));
+    background: linear-gradient(-45deg, #0000ff, #8a2be2, #4b0082, #00ffff, #00BFFF);
     background-size: 400% 400%;
-    animation: gradient-animation 15s ease infinite;
+    animation: gradient-animation 10s ease infinite;
 }
