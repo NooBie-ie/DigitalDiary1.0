@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import type { Diary, DiaryRow } from '@/lib/types';
 
 interface DiaryContextType {
@@ -14,8 +14,33 @@ interface DiaryContextType {
 
 const DiaryContext = createContext<DiaryContextType | undefined>(undefined);
 
+const DIARY_STORAGE_KEY = 'digitalis-diaries';
+
 export const DiaryProvider = ({ children }: { children: ReactNode }) => {
   const [diaries, setDiaries] = useState<Diary[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    try {
+      const storedDiaries = window.localStorage.getItem(DIARY_STORAGE_KEY);
+      if (storedDiaries) {
+        setDiaries(JSON.parse(storedDiaries));
+      }
+    } catch (error) {
+      console.error("Failed to load diaries from local storage", error);
+    }
+    setIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (isLoaded) {
+      try {
+        window.localStorage.setItem(DIARY_STORAGE_KEY, JSON.stringify(diaries));
+      } catch (error) {
+        console.error("Failed to save diaries to local storage", error);
+      }
+    }
+  }, [diaries, isLoaded]);
 
   const addDiary = (diaryData: Omit<Diary, 'id' | 'createdAt' | 'entries'>): Diary => {
     const newDiary: Diary = {
