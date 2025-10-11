@@ -64,9 +64,13 @@
   }
 
   .animated-gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400;
-    background-size: 200% auto;
-    animation: gradient-text-animation 10s ease-in-out infinite;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-cyan-400;
+    background-size: 400% 400%;
+    animation: gradient-animation 10s ease-in-out infinite;
+  }
+
+  .dark .animated-gradient-text {
+    @apply from-purple-400 to-cyan-400;
   }
 
   .animated-gradient-border {
@@ -112,13 +116,13 @@
 }
 
 .animated-gradient {
-    background: linear-gradient(-45deg, #ffc0cb, #ffffff, #ff0000, #ffa500, #ffff00);
+    background: linear-gradient(-45deg, #ffc0cb, #ff0000, #ffa500, #ffff00);
     background-size: 400% 400%;
-    animation: gradient-animation 10s ease infinite;
+    animation: gradient-animation 5s ease infinite;
 }
 
 .dark .animated-gradient {
     background: linear-gradient(-45deg, #0000ff, #8a2be2, #4b0082, #00ffff, #00BFFF);
     background-size: 400% 400%;
-    animation: gradient-animation 10s ease infinite;
+    animation: gradient-animation 5s ease infinite;
 }
