@@ -1,7 +1,6 @@
 "use client";
 
 import React from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDiary } from '@/context/diary-context';
 import {
@@ -12,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Home, NotebookText } from 'lucide-react';
+import { Home, NotebookText, Settings } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface SavedDiariesProps {
@@ -23,21 +22,29 @@ export default function SavedDiaries({ children }: SavedDiariesProps) {
   const { diaries } = useDiary();
   const router = useRouter();
 
+  // Sort diaries by creation date, newest first
+  const sortedDiaries = [...diaries].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 glass-effect">
         <DropdownMenuLabel>Saved Diaries</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {diaries.length > 0 ? (
-          diaries.map((diary) => (
-            <DropdownMenuItem key={diary.id} onSelect={() => router.push(`/diary/${diary.id}`)}>
+        {sortedDiaries.length > 0 ? (
+          <>
+            <DropdownMenuItem onSelect={() => router.push(`/diary/${sortedDiaries[0].id}`)}>
               <NotebookText className="mr-2 h-4 w-4" />
               <span>
-                {diary.className} {diary.section} - {format(new Date(diary.createdAt), 'MMM dd')}
+                Latest: {sortedDiaries[0].className} {sortedDiaries[0].section}
               </span>
             </DropdownMenuItem>
-          ))
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onSelect={() => router.push('/manage-diaries')}>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Manage Diaries</span>
+            </DropdownMenuItem>
+          </>
         ) : (
           <DropdownMenuItem disabled>No saved diaries yet.</DropdownMenuItem>
         )}
