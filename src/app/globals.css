@@ -64,7 +64,7 @@
   }
 
   .animated-gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-primary animate-gradient;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400;
     background-size: 200% auto;
     animation: gradient-text-animation 5s linear infinite;
   }
