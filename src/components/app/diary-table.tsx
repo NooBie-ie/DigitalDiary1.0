@@ -77,7 +77,7 @@ export default function DiaryTable({ entries, onUpdate }: DiaryTableProps) {
                   value={row.topic}
                   onChange={(e) => handleTextChange(row.id, 'topic', e.target.value)}
                   placeholder="Topic covered..."
-                  className="min-h-[60px]"
+                  className="min-h-[80px]"
                 />
               </TableCell>
               <TableCell>
@@ -85,7 +85,7 @@ export default function DiaryTable({ entries, onUpdate }: DiaryTableProps) {
                   value={row.cw}
                   onChange={(e) => handleTextChange(row.id, 'cw', e.target.value)}
                   placeholder="Classwork details..."
-                  className="min-h-[60px]"
+                  className="min-h-[80px]"
                 />
               </TableCell>
               <TableCell>
@@ -93,7 +93,7 @@ export default function DiaryTable({ entries, onUpdate }: DiaryTableProps) {
                   value={row.hw}
                   onChange={(e) => handleTextChange(row.id, 'hw', e.target.value)}
                   placeholder="Homework assigned..."
-                  className="min-h-[60px]"
+                  className="min-h-[80px]"
                 />
               </TableCell>
             </TableRow>

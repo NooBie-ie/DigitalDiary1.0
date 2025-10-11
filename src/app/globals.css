@@ -93,3 +93,9 @@
   background-size: 400% 400%;
   animation: gradient-animation 15s ease infinite;
 }
+
+.dark .animated-gradient {
+    background: linear-gradient(-45deg, hsl(240, 10%, 20%), hsl(260, 30%, 30%), hsl(240, 10%, 15%));
+    background-size: 400% 400%;
+    animation: gradient-animation 15s ease infinite;
+}
