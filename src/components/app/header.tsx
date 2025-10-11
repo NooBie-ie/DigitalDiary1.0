@@ -4,8 +4,10 @@ import { PenSquare } from 'lucide-react';
 const Header = () => {
   return (
     <header className="flex items-center justify-center gap-4 mb-8">
-      <PenSquare className="w-12 h-12 text-accent" />
-      <h1 className="text-5xl md:text-7xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/60">
+      <div className="animated-gradient-text">
+        <PenSquare className="w-12 h-12" />
+      </div>
+      <h1 className="text-5xl md:text-7xl font-bold tracking-tighter animated-gradient-text">
         DIGITAL DIARY
       </h1>
     </header>
