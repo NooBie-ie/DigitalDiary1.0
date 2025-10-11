@@ -1,0 +1,17 @@
+export const SUBJECTS = [
+  "Maths",
+  "Physics",
+  "Chemistry",
+  "Biology",
+  "History",
+  "Civics",
+  "Geography",
+  "Economics",
+  "English",
+  "Hindi",
+  "Sports",
+  "Phy/Chem/Bio Lab",
+  "Library",
+  "I.T.",
+  "Robotics/STEAM",
+] as const;
