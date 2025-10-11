@@ -72,7 +72,7 @@ export default function DiaryPage() {
       <div className="max-w-6xl mx-auto space-y-8">
         <Card className="glass-effect">
           <CardHeader className="flex-row items-center justify-between">
-            <CardTitle>
+            <CardTitle className="text-3xl">
               {diary.className} {diary.section} - {diary.teacherName}
             </CardTitle>
             <DigitalClock />
