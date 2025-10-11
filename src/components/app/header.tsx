@@ -3,7 +3,7 @@ import { PenSquare } from 'lucide-react';
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-center gap-4 mb-8">
+    <header className="glass-effect flex items-center justify-center gap-4 mb-8 p-4 rounded-lg shadow-lg">
       <div className="animated-gradient-text">
         <PenSquare className="w-12 h-12" />
       </div>

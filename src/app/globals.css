@@ -66,7 +66,7 @@
   .animated-gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400;
     background-size: 200% auto;
-    animation: gradient-text-animation 5s linear infinite;
+    animation: gradient-text-animation 10s ease-in-out infinite;
   }
 }
 
@@ -83,9 +83,9 @@
 }
 
 @keyframes gradient-text-animation {
-	to {
-		background-position: 200% center;
-	}
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
 }
 
 .animated-gradient {
