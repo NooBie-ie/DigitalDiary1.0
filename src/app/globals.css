@@ -122,7 +122,7 @@
 }
 
 .dark .animated-gradient {
-    background: linear-gradient(-45deg, #0000ff, #8a2be2, #4b0082, #00ffff, #00BFFF);
+    background: linear-gradient(-45deg, #8a2be2, #4b0082, #00ffff, #00BFFF);
     background-size: 400% 400%;
     animation: gradient-animation 5s ease infinite;
 }

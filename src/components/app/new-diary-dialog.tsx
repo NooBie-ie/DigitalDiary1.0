@@ -79,7 +79,7 @@ export default function NewDiaryDialog({ children, open, onOpenChange }: NewDiar
                 <FormItem>
                   <FormLabel>Class</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., 10th" {...field} />
+                    <Input placeholder="e.g., 10th" {...field} className="glass-effect" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -92,7 +92,7 @@ export default function NewDiaryDialog({ children, open, onOpenChange }: NewDiar
                 <FormItem>
                   <FormLabel>Section</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., B" {...field} />
+                    <Input placeholder="e.g., B" {...field} className="glass-effect" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -105,7 +105,7 @@ export default function NewDiaryDialog({ children, open, onOpenChange }: NewDiar
                 <FormItem>
                   <FormLabel>Teacher's Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., Mr. Smith" {...field} />
+                    <Input placeholder="e.g., Mr. Smith" {...field} className="glass-effect" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
