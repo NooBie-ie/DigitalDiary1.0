@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { provideWritingPrompts } from '@/ai/flows/ai-provide-writing-prompts';
-import { summarizeText } from '@/ai/flows/ai-summarize-text';
+import { askQuestion } from '@/ai/flows/ai-ask-question';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -19,23 +19,23 @@ interface AiChatbotProps {
 export default function AiChatbot({ children }: AiChatbotProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [summary, setSummary] = useState('');
+  const [answer, setAnswer] = useState('');
   const [prompts, setPrompts] = useState<string[]>([]);
   const { toast } = useToast();
 
-  const handleSummarize = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAskQuestion = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const text = formData.get('textToSummarize') as string;
-    if (!text) return;
+    const question = formData.get('question') as string;
+    if (!question) return;
 
     setIsLoading(true);
-    setSummary('');
+    setAnswer('');
     try {
-      const result = await summarizeText({ text });
-      setSummary(result.summary);
+      const result = await askQuestion({ question });
+      setAnswer(result.answer);
     } catch (error) {
-      toast({ title: 'Error', description: 'Failed to generate summary.', variant: 'destructive' });
+      toast({ title: 'Error', description: 'Failed to get an answer.', variant: 'destructive' });
     } finally {
       setIsLoading(false);
     }
@@ -69,21 +69,21 @@ export default function AiChatbot({ children }: AiChatbotProps) {
             Apna AI Assistant
           </DialogTitle>
         </DialogHeader>
-        <Tabs defaultValue="summarize" className="w-full">
+        <Tabs defaultValue="ask" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="summarize">Summarizer</TabsTrigger>
+            <TabsTrigger value="ask">Ask Questions</TabsTrigger>
             <TabsTrigger value="prompts">Prompts</TabsTrigger>
           </TabsList>
-          <TabsContent value="summarize">
-            <form onSubmit={handleSummarize} className="space-y-4">
-              <Textarea name="textToSummarize" placeholder="Paste your text here to summarize..." rows={6} className="glass-effect" />
+          <TabsContent value="ask">
+            <form onSubmit={handleAskQuestion} className="space-y-4">
+              <Textarea name="question" placeholder="Ask any question..." rows={6} className="glass-effect" />
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? <Loader2 className="animate-spin" /> : 'Summarize'}
+                {isLoading ? <Loader2 className="animate-spin" /> : 'Ask'}
               </Button>
             </form>
-            {summary && (
+            {answer && (
               <Card className="mt-4 bg-primary/50">
-                <CardContent className="p-4 text-sm">{summary}</CardContent>
+                <CardContent className="p-4 text-sm">{answer}</CardContent>
               </Card>
             )}
           </TabsContent>
