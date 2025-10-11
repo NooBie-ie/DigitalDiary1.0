@@ -22,28 +22,28 @@ export default function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <NewDiaryDialog open={newDiaryOpen} onOpenChange={setNewDiaryOpen}>
               <Button size="lg" className="w-full h-24 flex-col gap-2 shadow-lg glass-effect" onClick={() => setNewDiaryOpen(true)}>
-                <FilePlus2 size={48} />
+                <FilePlus2 size={56} />
                 <span className="text-lg">New Diary</span>
               </Button>
             </NewDiaryDialog>
             
             <SavedDiaries>
               <Button size="lg" variant="secondary" className="w-full h-24 flex-col gap-2 shadow-lg glass-effect">
-                <Book size={48} />
+                <Book size={56} />
                 <span className="text-lg">Saved Diaries</span>
               </Button>
             </SavedDiaries>
 
             <AiChatbot>
               <Button size="lg" variant="secondary" className="w-full h-24 flex-col gap-2 shadow-lg glass-effect">
-                <Bot size={48} />
+                <Bot size={56} />
                 <span className="text-lg">Apna AI</span>
               </Button>
             </AiChatbot>
             
             <TempNotes>
                <Button size="lg" variant="secondary" className="w-full h-24 flex-col gap-2 shadow-lg glass-effect">
-                <Notebook size={48} />
+                <Notebook size={56} />
                 <span className="text-lg">Temp Notes</span>
               </Button>
             </TempNotes>
