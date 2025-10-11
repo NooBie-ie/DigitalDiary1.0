@@ -3,6 +3,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import DisableContextMenu from '@/components/app/disable-context-menu';
 import { DiaryProvider } from '@/context/diary-context';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export const metadata: Metadata = {
   title: 'Digitalis',
@@ -15,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -25,11 +27,21 @@ export default function RootLayout({
         />
       </head>
       <body className="font-headline antialiased">
-        <DiaryProvider>
-          {children}
-          <Toaster />
-          <DisableContextMenu />
-        </DiaryProvider>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
+          <DiaryProvider>
+            <div className="absolute top-4 right-4 z-50">
+                <ThemeToggle />
+            </div>
+            {children}
+            <Toaster />
+            <DisableContextMenu />
+          </DiaryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

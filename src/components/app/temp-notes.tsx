@@ -21,7 +21,7 @@ export default function TempNotes({ children }: TempNotesProps) {
         </DialogHeader>
         <div className="flex-grow">
           <Textarea
-            placeholder="Jot down your thoughts..."
+            placeholder="Note down your thoughts..."
             className="w-full h-full resize-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
