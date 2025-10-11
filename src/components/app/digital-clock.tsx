@@ -18,10 +18,10 @@ export default function DigitalClock() {
 
   return (
     <div className="text-right">
-      <p className="font-mono text-2xl font-bold text-foreground">
+      <p className="font-mono text-2xl font-bold animated-gradient-text">
         {format(time, 'hh:mm:ss a')}
       </p>
-      <p className="text-xs text-muted-foreground">
+      <p className="text-sm animated-gradient-text">
         {format(time, 'eeee, MMMM do yyyy')}
       </p>
     </div>
