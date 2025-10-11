@@ -89,13 +89,13 @@
 }
 
 .animated-gradient {
-  background: linear-gradient(-45deg, hsl(240, 67%, 97%), hsl(340, 52%, 80%), hsl(240, 100%, 99%));
+  background: linear-gradient(-45deg, hsl(340, 82%, 85%), hsl(0, 0%, 100%), hsl(30, 90%, 85%), hsl(60, 100%, 85%));
   background-size: 400% 400%;
   animation: gradient-animation 15s ease infinite;
 }
 
 .dark .animated-gradient {
-    background: linear-gradient(-45deg, hsl(240, 10%, 20%), hsl(260, 30%, 30%), hsl(240, 10%, 15%));
+    background: linear-gradient(-45deg, hsl(240, 70%, 50%), hsl(270, 70%, 50%), hsl(300, 70%, 50%), hsl(180, 70%, 50%));
     background-size: 400% 400%;
     animation: gradient-animation 15s ease infinite;
 }
