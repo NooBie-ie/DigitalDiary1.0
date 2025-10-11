@@ -22,7 +22,7 @@ export default function TempNotes({ children }: TempNotesProps) {
         <div className="flex-grow">
           <Textarea
             placeholder="Note down your thoughts..."
-            className="w-full h-full resize-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+            className="w-full h-full resize-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-transparent"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />

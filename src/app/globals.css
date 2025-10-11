@@ -60,7 +60,7 @@
 
 @layer utilities {
   .glass-effect {
-    @apply bg-card/60 backdrop-blur-xl border border-white/20;
+    @apply bg-card/60 backdrop-blur-lg border border-white/20;
   }
 
   .animated-gradient-text {
@@ -71,29 +71,6 @@
 
   .dark .animated-gradient-text {
     @apply from-purple-400 to-cyan-400;
-  }
-
-  .animated-gradient-border {
-    position: relative;
-    border-radius: 0.5rem;
-    padding: 2px;
-    overflow: hidden;
-  }
-
-  .animated-gradient-border::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
-    z-index: -1;
-    margin: -2px;
-    border-radius: inherit; 
-    background: linear-gradient(-45deg, #8A2BE2, #00FFFF);
-    background-size: 400% 400%;
-    animation: gradient-animation 10s ease infinite;
-  }
-
-  .dark .animated-gradient-border::before {
-    background: linear-gradient(-45deg, #00FFFF, #8A2BE2);
   }
 }
 
@@ -107,12 +84,6 @@
   100% {
     background-position: 0% 50%;
   }
-}
-
-@keyframes gradient-text-animation {
-	0% { background-position: 0% 50%; }
-	50% { background-position: 100% 50%; }
-	100% { background-position: 0% 50%; }
 }
 
 .animated-gradient {

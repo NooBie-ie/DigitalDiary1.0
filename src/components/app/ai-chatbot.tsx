@@ -76,7 +76,7 @@ export default function AiChatbot({ children }: AiChatbotProps) {
           </TabsList>
           <TabsContent value="summarize">
             <form onSubmit={handleSummarize} className="space-y-4">
-              <Textarea name="textToSummarize" placeholder="Paste your text here to summarize..." rows={6} />
+              <Textarea name="textToSummarize" placeholder="Paste your text here to summarize..." rows={6} className="glass-effect" />
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? <Loader2 className="animate-spin" /> : 'Summarize'}
               </Button>
@@ -89,7 +89,7 @@ export default function AiChatbot({ children }: AiChatbotProps) {
           </TabsContent>
           <TabsContent value="prompts">
             <form onSubmit={handleGetPrompts} className="space-y-4">
-              <Input name="promptTopic" placeholder="Enter a topic, e.g., 'a rainy day'" />
+              <Input name="promptTopic" placeholder="Enter a topic, e.g., 'a rainy day'" className="glass-effect" />
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? <Loader2 className="animate-spin" /> : 'Get Prompts'}
               </Button>
