@@ -131,10 +131,10 @@ export default function DiaryPage() {
         title="Diary Saved"
         description='You Can Now Exit. If you want to edit then click on "view saved"'
       />
-      <div className={`relative p-4 sm:p-6 md:p-8 ${showAnimation ? 'animate-fade-in animate-delay-3000' : ''}`}>
-        <div className="absolute top-4 right-4 z-50">
+      <div className="fixed bottom-4 right-4 z-50">
           <InformationDialog />
-        </div>
+      </div>
+      <div className={`relative p-4 sm:p-6 md:p-8 ${showAnimation ? 'animate-fade-in animate-delay-3000' : ''}`}>
         <div className="flex justify-between items-center mb-4">
           {unsavedDiary ? (
              <SavedDiaries>
