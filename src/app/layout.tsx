@@ -6,6 +6,7 @@ import { DiaryProvider } from '@/context/diary-context';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ThemeToggle } from '@/components/theme-toggle';
 import ThemeChangeNotifier from '@/components/app/theme-change-notifier';
+import LoadingBlur from '@/components/app/loading-blur';
 
 export const metadata: Metadata = {
   title: 'Digitalis',
@@ -35,6 +36,7 @@ export default function RootLayout({
             disableTransitionOnChange
         >
           <DiaryProvider>
+            <LoadingBlur />
             <ThemeChangeNotifier />
             <div className="fixed bottom-4 left-4 z-50">
                 <ThemeToggle />

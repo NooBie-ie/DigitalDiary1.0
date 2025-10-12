@@ -10,6 +10,8 @@ interface DiaryContextType {
   getDiary: (id: string) => Diary | undefined;
   deleteDiary: (id: string) => void;
   updateDiaryDetails: (id: string, className: string, section: string, teacherName: string) => void;
+  isLoading: boolean;
+  setIsLoading: (loading: boolean) => void;
 }
 
 const DiaryContext = createContext<DiaryContextType | undefined>(undefined);
@@ -19,6 +21,7 @@ const DIARY_STORAGE_KEY = 'digitalis-diaries';
 export const DiaryProvider = ({ children }: { children: ReactNode }) => {
   const [diaries, setDiaries] = useState<Diary[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     try {
@@ -84,7 +87,7 @@ export const DiaryProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <DiaryContext.Provider value={{ diaries, addDiary, updateDiary, getDiary, deleteDiary, updateDiaryDetails }}>
+    <DiaryContext.Provider value={{ diaries, addDiary, updateDiary, getDiary, deleteDiary, updateDiaryDetails, isLoading, setIsLoading }}>
       {children}
     </DiaryContext.Provider>
   );

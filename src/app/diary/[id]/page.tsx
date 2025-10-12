@@ -18,13 +18,16 @@ import SavedDiaries from '@/components/app/saved-diaries';
 export default function DiaryPage() {
   const router = useRouter();
   const params = useParams();
-  const { getDiary, updateDiary } = useDiary();
+  const { getDiary, updateDiary, setIsLoading } = useDiary();
   const [diary, setDiary] = useState<Diary | null>(null);
   const [showAnimation, setShowAnimation] = useState(false);
 
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
   useEffect(() => {
+    // Turn off blur effect when the page starts loading
+    setIsLoading(false);
+    
     if (id) {
       const foundDiary = getDiary(id);
       if (foundDiary) {
@@ -35,10 +38,19 @@ export default function DiaryPage() {
         }, 4000); // 1s fade-in + 3s hold
         return () => clearTimeout(timer);
       } else {
-        setTimeout(() => router.push('/'), 1000);
+        // If diary not found, maybe it's still loading from storage
+        setTimeout(() => {
+          const retryDiary = getDiary(id);
+          if (retryDiary) {
+            setDiary(retryDiary);
+          } else {
+            router.push('/');
+          }
+        }, 500);
       }
     }
-  }, [id, getDiary, router]);
+  }, [id, getDiary, router, setIsLoading]);
+
 
   const handleSave = () => {
     if (diary) {
@@ -50,7 +62,7 @@ export default function DiaryPage() {
   if (!diary) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <p>Loading diary or diary not found...</p>
+        <p>Loading diary...</p>
       </div>
     );
   }

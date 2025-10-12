@@ -36,8 +36,8 @@ interface NewDiaryDialogProps {
 
 export default function NewDiaryDialog({ children, open, onOpenChange }: NewDiaryDialogProps) {
   const router = useRouter();
-  const { addDiary } = useDiary();
-  const [isLoading, setIsLoading] = useState(false);
+  const { addDiary, setIsLoading } = useDiary();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<NewDiaryFormValues>({
     resolver: zodResolver(formSchema),
@@ -49,15 +49,16 @@ export default function NewDiaryDialog({ children, open, onOpenChange }: NewDiar
   });
 
   const onSubmit = (data: NewDiaryFormValues) => {
-    setIsLoading(true);
-    // Simulate network delay
-    setTimeout(() => {
-      const newDiary = addDiary(data);
-      form.reset();
-      setIsLoading(false);
-      onOpenChange(false);
-      router.push(`/diary/${newDiary.id}`);
-    }, 1000);
+    setIsSubmitting(true);
+    setIsLoading(true); // Start blur effect
+    
+    // No need for setTimeout if we want a quick transition
+    const newDiary = addDiary(data);
+    form.reset();
+    onOpenChange(false);
+    
+    // The blur will be turned off in the destination page
+    router.push(`/diary/${newDiary.id}`);
   };
 
   return (
@@ -115,8 +116,8 @@ export default function NewDiaryDialog({ children, open, onOpenChange }: NewDiar
               <Button type="button" variant="secondary" onClick={() => onOpenChange(false)}>
                 Cancel
               </Button>
-              <Button type="submit" variant="default" disabled={isLoading}>
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              <Button type="submit" variant="default" disabled={isSubmitting}>
+                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Load
               </Button>
             </DialogFooter>
