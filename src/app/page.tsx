@@ -32,8 +32,7 @@ export default function Home() {
                 left: `${left}%`,
                 width: `${size}px`,
                 height: `${size}px`,
-                animation: `smooth-zoom ${duration}s ease-in-out infinite ${delay}s`,
-                transform: `translate(-50%, -50%)`,
+                animation: `float ${duration}s ease-in-out infinite ${delay}s`,
                 filter: 'blur(20%)',
               }}
             />
