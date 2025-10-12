@@ -21,8 +21,23 @@ export default function Home() {
           const size = Math.random() * 80 + 40;
           const duration = Math.random() * 20 + 15;
           const delay = Math.random() * -20;
-          const top = Math.random() * 100;
-          const left = Math.random() * 100;
+          
+          // Constrain positions to be more spread out and avoid the center
+          let top, left;
+          if (index % 4 === 0) { // Top-left quadrant
+            top = Math.random() * 40;
+            left = Math.random() * 40;
+          } else if (index % 4 === 1) { // Top-right quadrant
+            top = Math.random() * 40;
+            left = Math.random() * 40 + 60;
+          } else if (index % 4 === 2) { // Bottom-left quadrant
+            top = Math.random() * 40 + 60;
+            left = Math.random() * 40;
+          } else { // Bottom-right quadrant
+            top = Math.random() * 40 + 60;
+            left = Math.random() * 40 + 60;
+          }
+
           return (
             <Icon
               key={index}
@@ -34,6 +49,7 @@ export default function Home() {
                 height: `${size}px`,
                 animation: `float ${duration}s ease-in-out infinite ${delay}s`,
                 filter: 'blur(20%)',
+                transform: 'translate(-50%, -50%)', // Center the icon on its coordinates
               }}
             />
           );
