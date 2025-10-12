@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -18,10 +19,10 @@ export default function DigitalClock() {
 
   return (
     <div className="text-right">
-      <p className="font-mono text-2xl font-bold animated-gradient-text">
+      <p className="font-mono text-4xl font-bold animated-gradient-text">
         {format(time, 'hh:mm:ss a')}
       </p>
-      <p className="text-lg animated-gradient-text">
+      <p className="text-xl animated-gradient-text">
         {format(time, 'eeee, MMMM do yyyy')}
       </p>
     </div>
