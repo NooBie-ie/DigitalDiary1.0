@@ -22,10 +22,7 @@ export default function ConfirmationDialog({ isOpen, onClose, title, description
   }, [isOpen]);
 
   const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      onClose();
-    }, 2000); // Matches the blur-out duration
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -35,9 +32,7 @@ export default function ConfirmationDialog({ isOpen, onClose, title, description
       {/* Background Blur */}
       <div
         className={cn(
-          "fixed inset-0 z-[100] bg-background/30",
-          "transition-all duration-[2000ms] ease-in-out",
-          isClosing ? "backdrop-blur-none bg-transparent" : "backdrop-blur-sm",
+          "fixed inset-0 z-[100] bg-background/30 backdrop-blur-sm",
           "animate-in fade-in-0"
         )}
         onClick={handleClose}
@@ -48,7 +43,6 @@ export default function ConfirmationDialog({ isOpen, onClose, title, description
         className={cn(
           "fixed left-[50%] top-[50%] z-[150] w-full max-w-md -translate-x-1/2 -translate-y-1/2 p-6",
           "data-[state=open]:animate-in data-[state=open]:slide-in-from-top-full data-[state=open]:duration-500",
-          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=closed]:duration-500",
         )}
         data-state={isClosing ? "closed" : "open"}
       >
