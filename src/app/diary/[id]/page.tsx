@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useEffect, useState } from 'react';
@@ -18,7 +19,7 @@ import SavedDiaries from '@/components/app/saved-diaries';
 export default function DiaryPage() {
   const router = useRouter();
   const params = useParams();
-  const { getDiary, updateDiary, setIsLoading } = useDiary();
+  const { getDiary, updateDiary, setIsLoading, unsavedDiary, setUnsavedDiary, clearUnsavedDiary } = useDiary();
   const [diary, setDiary] = useState<Diary | null>(null);
   const [showAnimation, setShowAnimation] = useState(false);
 
@@ -29,33 +30,49 @@ export default function DiaryPage() {
     setIsLoading(false);
     
     if (id) {
-      const foundDiary = getDiary(id);
-      if (foundDiary) {
-        setDiary(foundDiary);
-        setShowAnimation(true);
-        const timer = setTimeout(() => {
-          setShowAnimation(false);
-        }, 4000); // 1s fade-in + 3s hold
-        return () => clearTimeout(timer);
+      // Check for unsaved diary first
+      if (unsavedDiary && unsavedDiary.id === id) {
+        setDiary(unsavedDiary);
       } else {
-        // If diary not found, maybe it's still loading from storage
-        setTimeout(() => {
-          const retryDiary = getDiary(id);
-          if (retryDiary) {
-            setDiary(retryDiary);
-          } else {
-            router.push('/');
-          }
-        }, 500);
+        const foundDiary = getDiary(id);
+        if (foundDiary) {
+          setDiary(foundDiary);
+        } else {
+          // If diary not found, maybe it's still loading from storage
+          setTimeout(() => {
+            const retryDiary = getDiary(id);
+            if (retryDiary) {
+              setDiary(retryDiary);
+            } else {
+              router.push('/');
+            }
+          }, 500);
+        }
       }
+      
+      setShowAnimation(true);
+      const timer = setTimeout(() => {
+        setShowAnimation(false);
+      }, 4000); // 1s fade-in + 3s hold
+      return () => clearTimeout(timer);
+
     }
-  }, [id, getDiary, router, setIsLoading]);
+  }, [id, getDiary, router, setIsLoading, unsavedDiary]);
 
 
   const handleSave = () => {
     if (diary) {
       updateDiary(diary.id, diary.entries);
+      clearUnsavedDiary(); // Clear unsaved work on save
       alert('Diary Saved!');
+    }
+  };
+
+  const handleUpdateEntries = (updatedEntries: Diary['entries']) => {
+    const newDiaryState = diary ? {...diary, entries: updatedEntries} : null;
+    setDiary(newDiaryState);
+    if (newDiaryState) {
+        setUnsavedDiary(newDiaryState);
     }
   };
 
@@ -109,9 +126,7 @@ export default function DiaryPage() {
             <CardContent>
               <DiaryTable
                 entries={diary.entries}
-                onUpdate={(updatedEntries) => {
-                  setDiary(d => d ? {...d, entries: updatedEntries} : null)
-                }}
+                onUpdate={handleUpdateEntries}
               />
             </CardContent>
           </Card>

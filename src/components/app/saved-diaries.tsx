@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -11,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Home, NotebookText, Settings } from 'lucide-react';
+import { Home, NotebookText, Settings, AlertTriangle } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface SavedDiariesProps {
@@ -19,7 +20,7 @@ interface SavedDiariesProps {
 }
 
 export default function SavedDiaries({ children }: SavedDiariesProps) {
-  const { diaries } = useDiary();
+  const { diaries, unsavedDiary } = useDiary();
   const router = useRouter();
 
   // Sort diaries by creation date, newest first
@@ -31,6 +32,15 @@ export default function SavedDiaries({ children }: SavedDiariesProps) {
       <DropdownMenuContent className="w-56 glass-effect">
         <DropdownMenuLabel>Saved Diaries</DropdownMenuLabel>
         <DropdownMenuSeparator />
+        {unsavedDiary && (
+            <>
+                <DropdownMenuItem onSelect={() => router.push(`/diary/${unsavedDiary.id}`)}>
+                    <AlertTriangle className="mr-2 h-4 w-4 text-destructive" />
+                    <span className="text-destructive">Unsaved Work</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+            </>
+        )}
         {sortedDiaries.length > 0 ? (
           <>
             <DropdownMenuItem onSelect={() => router.push(`/diary/${sortedDiaries[0].id}`)}>
