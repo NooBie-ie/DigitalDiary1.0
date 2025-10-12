@@ -30,11 +30,8 @@ export default function DiaryPage() {
       const foundDiary = getDiary(id);
       if (foundDiary) {
         setDiary(foundDiary);
-        // Only set loading to false after diary is found and set
         setIsLoading(false);
       } else {
-        // If diary not found, it might still be loading from storage.
-        // We'll rely on a brief delay to check again.
         setTimeout(() => {
           const retryDiary = getDiary(id);
           if (retryDiary) {
@@ -45,15 +42,16 @@ export default function DiaryPage() {
           }
         }, 500);
       }
-      
+    }
+  }, [id, getDiary, router, setIsLoading]);
+  
+  useEffect(() => {
       setShowAnimation(true);
       const timer = setTimeout(() => {
         setShowAnimation(false);
       }, 4000); // 1s fade-in + 3s hold
       return () => clearTimeout(timer);
-
-    }
-  }, [id, getDiary, router, setIsLoading]);
+  }, []);
 
 
   useEffect(() => {
