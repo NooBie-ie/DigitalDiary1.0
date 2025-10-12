@@ -24,8 +24,8 @@ export default function ThemeChangeNotifier() {
       const timer = setTimeout(() => {
         setAnimationClass('animate-out');
         // Wait for fade-out animation to complete before hiding
-        setTimeout(() => setShowNotification(false), 500); 
-      }, 2500); // Start fade-out after 2.5s to be gone by 3s
+        setTimeout(() => setShowNotification(false), 1000); 
+      }, 3000);
 
       return () => clearTimeout(timer);
     }
@@ -35,7 +35,7 @@ export default function ThemeChangeNotifier() {
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-start justify-center pt-10 pointer-events-none transition-all duration-500 ${animationClass === 'animate-in' ? 'backdrop-blur-sm' : 'backdrop-blur-0'}`}
+      className={`fixed inset-0 z-[100] flex items-start justify-center pt-10 pointer-events-none transition-all duration-1000 ${animationClass === 'animate-in' ? 'backdrop-blur-sm' : 'backdrop-blur-0'}`}
     >
       <div
         className={`glass-effect rounded-lg p-6 shadow-2xl flex flex-col items-center gap-4 ${animationClass}`}
