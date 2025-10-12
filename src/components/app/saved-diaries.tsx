@@ -23,8 +23,10 @@ export default function SavedDiaries({ children }: SavedDiariesProps) {
   const { diaries, unsavedDiary } = useDiary();
   const router = useRouter();
 
-  // Sort diaries by creation date, newest first
-  const sortedDiaries = [...diaries].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  // Sort diaries by creation date, newest first, and take the top 3
+  const sortedDiaries = [...diaries]
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 3);
 
   return (
     <DropdownMenu>
