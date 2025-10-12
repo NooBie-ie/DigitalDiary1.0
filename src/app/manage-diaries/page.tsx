@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from 'react';
@@ -7,18 +8,21 @@ import type { Diary } from '@/lib/types';
 import Header from '@/components/app/header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { MoreVertical, Pen, Trash2, BookOpen, ChevronLeft } from 'lucide-react';
-import { format } from 'date-fns';
+import { MoreVertical, Pen, Trash2, BookOpen, ChevronLeft, Search } from 'lucide-react';
+import { format, isSameDay } from 'date-fns';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { DatePicker } from '@/components/ui/date-picker';
 
 export default function ManageDiariesPage() {
   const router = useRouter();
   const { diaries, deleteDiary, updateDiaryDetails } = useDiary();
   const [renameDiary, setRenameDiary] = useState<Diary | null>(null);
   const [newName, setNewName] = useState({ className: '', section: '', teacherName: '' });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchDate, setSearchDate] = useState<Date | undefined>();
 
   const handleOpen = (id: string) => {
     router.push(`/diary/${id}`);
@@ -40,6 +44,13 @@ export default function ManageDiariesPage() {
     }
   };
 
+  const filteredDiaries = diaries.filter(diary => {
+    const diaryDate = new Date(diary.createdAt);
+    const nameMatch = `${diary.className} ${diary.section} ${diary.teacherName}`.toLowerCase().includes(searchTerm.toLowerCase());
+    const dateMatch = searchDate ? isSameDay(diaryDate, searchDate) : true;
+    return nameMatch && dateMatch;
+  });
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
         <div className="absolute inset-0 animated-gradient z-0"></div>
@@ -60,11 +71,23 @@ export default function ManageDiariesPage() {
                 <Card className="glass-effect">
                 <CardHeader>
                     <CardTitle>Manage Diaries</CardTitle>
+                    <div className="flex flex-col sm:flex-row gap-2 mt-4">
+                        <div className="relative flex-grow">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                            <Input
+                                placeholder="Search by name..."
+                                value={searchTerm}
+                                onChange={e => setSearchTerm(e.target.value)}
+                                className="pl-10 w-full glass-effect"
+                            />
+                        </div>
+                        <DatePicker date={searchDate} setDate={setSearchDate} />
+                    </div>
                 </CardHeader>
                 <CardContent>
                     <div className="space-y-4">
-                    {diaries.length > 0 ? (
-                        diaries.map((diary) => (
+                    {filteredDiaries.length > 0 ? (
+                        filteredDiaries.map((diary) => (
                         <div key={diary.id} className="flex items-center justify-between p-4 rounded-lg glass-effect">
                             <div>
                             <p className="font-semibold">{diary.className} {diary.section} - {diary.teacherName}</p>
@@ -115,7 +138,7 @@ export default function ManageDiariesPage() {
                         </div>
                         ))
                     ) : (
-                        <p className="text-center text-muted-foreground">No diaries found.</p>
+                        <p className="text-center text-muted-foreground py-8">No diaries found.</p>
                     )}
                     </div>
                 </CardContent>
