@@ -8,6 +8,7 @@ export default function ThemeChangeNotifier() {
   const { resolvedTheme, theme } = useTheme();
   const [showNotification, setShowNotification] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [animationClass, setAnimationClass] = useState('');
 
   const themeToShow = useMemo(() => resolvedTheme || theme, [resolvedTheme, theme]);
 
@@ -19,27 +20,25 @@ export default function ThemeChangeNotifier() {
     
     if (themeToShow) {
       setShowNotification(true);
+      setAnimationClass('animate-in');
       const timer = setTimeout(() => {
-        setShowNotification(false);
-      }, 3000); 
+        setAnimationClass('animate-out');
+        // Wait for fade-out animation to complete before hiding
+        setTimeout(() => setShowNotification(false), 500); 
+      }, 2500); // Start fade-out after 2.5s to be gone by 3s
 
       return () => clearTimeout(timer);
     }
   }, [themeToShow, isInitialLoad]);
-
-  const animationClass = showNotification ? 'animate-in' : 'animate-out';
+  
+  if (!showNotification) return null;
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-start justify-center pt-10 transition-all duration-300 pointer-events-none ${showNotification ? 'backdrop-blur-sm' : 'backdrop-blur-0'}`}
+      className={`fixed inset-0 z-[100] flex items-start justify-center pt-10 pointer-events-none transition-all duration-500 ${animationClass === 'animate-in' ? 'backdrop-blur-sm' : 'backdrop-blur-0'}`}
     >
       <div
         className={`glass-effect rounded-lg p-6 shadow-2xl flex flex-col items-center gap-4 ${animationClass}`}
-        style={{
-          animationFillMode: 'forwards',
-          animationDuration: showNotification ? '500ms' : '300ms',
-          animationDelay: showNotification ? '0ms' : '2700ms', /* Show for 3s total */
-        }}
       >
         {themeToShow === 'dark' ? (
           <Moon className="w-12 h-12" />
