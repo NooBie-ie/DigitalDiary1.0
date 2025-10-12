@@ -15,6 +15,7 @@ import AiChatbot from '@/components/app/ai-chatbot';
 import TempNotes from '@/components/app/temp-notes';
 import { Bot, Notebook } from 'lucide-react';
 import SavedDiaries from '@/components/app/saved-diaries';
+import InformationDialog from '@/components/app/information-dialog';
 
 export default function DiaryPage() {
   const router = useRouter();
@@ -119,6 +120,7 @@ export default function DiaryPage() {
             <TempNotes>
               <Button variant="outline" size="icon"><Notebook /></Button>
             </TempNotes>
+            <InformationDialog />
           </div>
         </div>
         
