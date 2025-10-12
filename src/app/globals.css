@@ -101,13 +101,13 @@
 /* General Purpose Animations */
 .animate-in {
   animation-name:-global-fade-in;
-  animation-duration:500ms;
+  animation-duration:1s;
   animation-timing-function:ease-out;
   animation-fill-mode:forwards
 }
 .animate-out {
   animation-name:-global-fade-out;
-  animation-duration:300ms;
+  animation-duration:1s;
   animation-timing-function:ease-in;
   animation-fill-mode:forwards
 }
@@ -167,5 +167,17 @@
   50% {
     transform: scale(1.2) translate(-50%, -50%);
     filter: blur(1.5px);
+  }
+}
+
+@keyframes smooth-zoom {
+  0% {
+    transform: scale(1) translate(-50%, -50%);
+  }
+  50% {
+    transform: scale(1.1) translate(-50%, -50%);
+  }
+  100% {
+    transform: scale(1) translate(-50%, -50%);
   }
 }
