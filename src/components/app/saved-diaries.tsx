@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Home, NotebookText, Settings, AlertTriangle } from 'lucide-react';
+import { NotebookText, Settings, AlertTriangle } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface SavedDiariesProps {
