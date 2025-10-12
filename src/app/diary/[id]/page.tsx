@@ -26,28 +26,24 @@ export default function DiaryPage() {
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
   useEffect(() => {
-    // Turn off blur effect when the page starts loading
-    setIsLoading(false);
-    
     if (id) {
-      // Check for unsaved diary first
-      if (unsavedDiary && unsavedDiary.id === id) {
-        setDiary(unsavedDiary);
+      const foundDiary = getDiary(id);
+      if (foundDiary) {
+        setDiary(foundDiary);
+        // Only set loading to false after diary is found and set
+        setIsLoading(false);
       } else {
-        const foundDiary = getDiary(id);
-        if (foundDiary) {
-          setDiary(foundDiary);
-        } else {
-          // If diary not found, maybe it's still loading from storage
-          setTimeout(() => {
-            const retryDiary = getDiary(id);
-            if (retryDiary) {
-              setDiary(retryDiary);
-            } else {
-              router.push('/');
-            }
-          }, 500);
-        }
+        // If diary not found, it might still be loading from storage.
+        // We'll rely on a brief delay to check again.
+        setTimeout(() => {
+          const retryDiary = getDiary(id);
+          if (retryDiary) {
+            setDiary(retryDiary);
+            setIsLoading(false);
+          } else {
+            router.push('/');
+          }
+        }, 500);
       }
       
       setShowAnimation(true);
@@ -57,7 +53,14 @@ export default function DiaryPage() {
       return () => clearTimeout(timer);
 
     }
-  }, [id, getDiary, router, setIsLoading, unsavedDiary]);
+  }, [id, getDiary, router, setIsLoading]);
+
+
+  useEffect(() => {
+    if (unsavedDiary && unsavedDiary.id === id) {
+      setDiary(unsavedDiary);
+    }
+  }, [id, unsavedDiary]);
 
 
   const handleSave = () => {
