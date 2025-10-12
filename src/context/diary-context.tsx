@@ -66,7 +66,7 @@ export const DiaryProvider = ({ children }: { children: ReactNode }) => {
       ...diaryData,
       id: Date.now().toString(),
       createdAt: new Date().toISOString(),
-      entries: Array.from({ length: 6 }, (_, i) => ({
+      entries: Array.from({ length: 7 }, (_, i) => ({
         id: `row-${Date.now()}-${i}`,
         subject: '',
         topic: '',
