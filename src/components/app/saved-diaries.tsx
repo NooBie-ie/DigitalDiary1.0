@@ -45,16 +45,18 @@ export default function SavedDiaries({ children }: SavedDiariesProps) {
 
         {sortedDiaries.length > 0 ? (
           <>
-            <DropdownMenuItem onSelect={() => router.push(`/diary/${sortedDiaries[0].id}`)}>
-              <NotebookText className="mr-2 h-4 w-4" />
-              <span>
-                Latest: {sortedDiaries[0].className} {sortedDiaries[0].section}
-              </span>
-            </DropdownMenuItem>
+            {sortedDiaries.map((diary) => (
+               <DropdownMenuItem key={diary.id} onSelect={() => router.push(`/diary/${diary.id}`)}>
+                  <NotebookText className="mr-2 h-4 w-4" />
+                  <span>
+                    {diary.className} {diary.section}
+                  </span>
+              </DropdownMenuItem>
+            ))}
             <DropdownMenuSeparator />
             <DropdownMenuItem onSelect={() => router.push('/manage-diaries')}>
               <Settings className="mr-2 h-4 w-4" />
-              <span>Manage Diaries</span>
+              <span>Manage All</span>
             </DropdownMenuItem>
           </>
         ) : (
