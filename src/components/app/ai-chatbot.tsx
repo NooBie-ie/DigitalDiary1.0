@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from 'react';
@@ -11,6 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Loader2, Wand2 } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface AiChatbotProps {
   children: React.ReactNode;
@@ -82,9 +84,11 @@ export default function AiChatbot({ children }: AiChatbotProps) {
               </Button>
             </form>
             {answer && (
-              <Card className="mt-4 bg-primary/50">
-                <CardContent className="p-4 text-sm">{answer}</CardContent>
-              </Card>
+              <ScrollArea className="h-48 mt-4">
+                <Card className="bg-primary/50">
+                  <CardContent className="p-4 text-sm whitespace-pre-wrap">{answer}</CardContent>
+                </Card>
+              </ScrollArea>
             )}
           </TabsContent>
           <TabsContent value="prompts">
@@ -95,13 +99,15 @@ export default function AiChatbot({ children }: AiChatbotProps) {
               </Button>
             </form>
             {prompts.length > 0 && (
-              <Card className="mt-4 bg-primary/50">
-                <CardContent className="p-4">
-                  <ul className="list-disc list-inside space-y-2 text-sm">
-                    {prompts.map((prompt, i) => <li key={i}>{prompt}</li>)}
-                  </ul>
-                </CardContent>
-              </Card>
+              <ScrollArea className="h-48 mt-4">
+                <Card className="bg-primary/50">
+                  <CardContent className="p-4">
+                    <ul className="list-disc list-inside space-y-2 text-sm">
+                      {prompts.map((prompt, i) => <li key={i}>{prompt}</li>)}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </ScrollArea>
             )}
           </TabsContent>
         </Tabs>
