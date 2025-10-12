@@ -26,7 +26,7 @@ export default function Home() {
           return (
             <Icon
               key={index}
-              className="absolute text-white/10"
+              className="absolute text-white/10 m-8"
               style={{
                 top: `${top}%`,
                 left: `${left}%`,
