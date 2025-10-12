@@ -61,15 +61,6 @@ export default function SavedDiaries({ children }: SavedDiariesProps) {
           <DropdownMenuItem disabled>No saved diaries yet.</DropdownMenuItem>
         )}
         
-        {!unsavedDiary && (
-            <>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={() => router.push('/')}>
-                    <Home className="mr-2 h-4 w-4" />
-                    <span>Back to Home</span>
-                </DropdownMenuItem>
-            </>
-        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
