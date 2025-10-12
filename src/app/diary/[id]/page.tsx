@@ -108,7 +108,10 @@ export default function DiaryPage() {
           </div>
         </div>
       )}
-      <div className={`p-4 sm:p-6 md:p-8 ${showAnimation ? 'animate-fade-in animate-delay-3000' : ''}`}>
+      <div className={`relative p-4 sm:p-6 md:p-8 ${showAnimation ? 'animate-fade-in animate-delay-3000' : ''}`}>
+        <div className="absolute top-4 right-4 z-50">
+          <InformationDialog />
+        </div>
         <div className="flex justify-between items-center mb-4">
           <Button variant="ghost" size="icon" onClick={() => router.push('/')}>
             <ChevronLeft />
@@ -120,7 +123,6 @@ export default function DiaryPage() {
             <TempNotes>
               <Button variant="outline" size="icon"><Notebook /></Button>
             </TempNotes>
-            <InformationDialog />
           </div>
         </div>
         
