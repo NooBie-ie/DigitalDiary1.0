@@ -22,6 +22,7 @@ export default function DiaryPage() {
   const { getDiary, updateDiary, setIsLoading, unsavedDiary, setUnsavedDiary, clearUnsavedDiary } = useDiary();
   const [diary, setDiary] = useState<Diary | null>(null);
   const [showAnimation, setShowAnimation] = useState(false);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
@@ -47,10 +48,17 @@ export default function DiaryPage() {
   
   useEffect(() => {
       setShowAnimation(true);
-      const timer = setTimeout(() => {
+      const fadeOutTimer = setTimeout(() => {
+        setIsAnimatingOut(true);
+      }, 3000); // Start fade-out after 3s
+      const removeTimer = setTimeout(() => {
         setShowAnimation(false);
-      }, 4000); // 1s fade-in + 3s hold
-      return () => clearTimeout(timer);
+      }, 4000); // Remove from DOM after 4s (3s hold + 1s fade-out)
+      
+      return () => {
+        clearTimeout(fadeOutTimer);
+        clearTimeout(removeTimer);
+      };
   }, []);
 
 
@@ -88,7 +96,7 @@ export default function DiaryPage() {
   return (
     <>
       {showAnimation && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/30 backdrop-blur-sm animate-fade-in animate-duration-1000 animate-fill-forwards">
+        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-background/30 backdrop-blur-sm ${isAnimatingOut ? 'animate-fade-out' : 'animate-fade-in'}`}>
            <div className="glass-effect rounded-lg p-8 shadow-2xl animate-slide-in-from-top animate-duration-1000 animate-delay-100 animate-fill-forwards animate-once">
             <h2 className="text-3xl font-bold text-center">
               {diary.className} &lsquo;{diary.section}&rsquo;
