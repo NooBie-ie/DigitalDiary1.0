@@ -29,7 +29,7 @@ export default function SavedDiaries({ children }: SavedDiariesProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 glass-effect">
+      <DropdownMenuContent className="w-64 glass-effect">
         <DropdownMenuLabel>Saved Diaries</DropdownMenuLabel>
         <DropdownMenuSeparator />
         
@@ -48,9 +48,14 @@ export default function SavedDiaries({ children }: SavedDiariesProps) {
             {sortedDiaries.map((diary) => (
                <DropdownMenuItem key={diary.id} onSelect={() => router.push(`/diary/${diary.id}`)}>
                   <NotebookText className="mr-2 h-4 w-4" />
-                  <span>
-                    {diary.className} {diary.section}
-                  </span>
+                  <div className="flex justify-between w-full items-center">
+                    <span className="truncate">
+                      {diary.className} {diary.section}
+                    </span>
+                    <span className="text-xs text-muted-foreground ml-2">
+                        {format(new Date(diary.createdAt), 'MMM dd')}
+                    </span>
+                  </div>
               </DropdownMenuItem>
             ))}
             <DropdownMenuSeparator />
