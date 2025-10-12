@@ -32,15 +32,17 @@ export default function SavedDiaries({ children }: SavedDiariesProps) {
       <DropdownMenuContent className="w-56 glass-effect">
         <DropdownMenuLabel>Saved Diaries</DropdownMenuLabel>
         <DropdownMenuSeparator />
+        
         {unsavedDiary && (
             <>
                 <DropdownMenuItem onSelect={() => router.push(`/diary/${unsavedDiary.id}`)}>
                     <AlertTriangle className="mr-2 h-4 w-4 text-destructive" />
-                    <span className="text-destructive">Unsaved Work</span>
+                    <span className="text-destructive">Left off Diary</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
             </>
         )}
+
         {sortedDiaries.length > 0 ? (
           <>
             <DropdownMenuItem onSelect={() => router.push(`/diary/${sortedDiaries[0].id}`)}>
@@ -58,11 +60,16 @@ export default function SavedDiaries({ children }: SavedDiariesProps) {
         ) : (
           <DropdownMenuItem disabled>No saved diaries yet.</DropdownMenuItem>
         )}
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onSelect={() => router.push('/')}>
-          <Home className="mr-2 h-4 w-4" />
-          <span>Back to Home</span>
-        </DropdownMenuItem>
+        
+        {!unsavedDiary && (
+            <>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={() => router.push('/')}>
+                    <Home className="mr-2 h-4 w-4" />
+                    <span>Back to Home</span>
+                </DropdownMenuItem>
+            </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
