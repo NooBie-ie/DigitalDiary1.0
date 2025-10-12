@@ -1,10 +1,6 @@
-import { SUBJECTS } from "./constants";
-
-export type Subject = typeof SUBJECTS[number];
-
 export type DiaryRow = {
   id: string;
-  subject: Subject | '';
+  subject: string;
   topic: string;
   cw: string;
   hw: string;

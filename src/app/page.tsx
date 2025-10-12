@@ -8,6 +8,7 @@ import AiChatbot from '@/components/app/ai-chatbot';
 import TempNotes from '@/components/app/temp-notes';
 import { Button } from '@/components/ui/button';
 import { FilePlus2, Book, Bot, Notebook } from 'lucide-react';
+import { SUBJECTS } from '@/lib/constants';
 
 export default function Home() {
   const [newDiaryOpen, setNewDiaryOpen] = React.useState(false);
@@ -15,6 +16,29 @@ export default function Home() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       <div className="absolute inset-0 animated-gradient z-0"></div>
+       <div className="absolute inset-0 z-0 h-full w-full overflow-hidden">
+        {SUBJECTS.map(({ Icon }, index) => {
+          const size = Math.random() * 80 + 40;
+          const duration = Math.random() * 20 + 15;
+          const delay = Math.random() * -20;
+          const top = Math.random() * 100;
+          const left = Math.random() * 100;
+          return (
+            <Icon
+              key={index}
+              className="absolute text-white/10"
+              style={{
+                top: `${top}%`,
+                left: `${left}%`,
+                width: `${size}px`,
+                height: `${size}px`,
+                animation: `zoom-blur ${duration}s ease-in-out infinite ${delay}s`,
+                transform: `translate(-50%, -50%)`,
+              }}
+            />
+          );
+        })}
+      </div>
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-4">
         <Header />
         

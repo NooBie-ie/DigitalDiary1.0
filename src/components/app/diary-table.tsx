@@ -29,7 +29,7 @@ export default function DiaryTable({ entries, onUpdate }: DiaryTableProps) {
   
   const handleSubjectChange = (rowId: string, value: string) => {
     const updatedEntries = entries.map((row) =>
-      row.id === rowId ? { ...row, subject: value as DiaryRow['subject'] } : row
+      row.id === rowId ? { ...row, subject: value } : row
     );
     onUpdate(updatedEntries);
   };
@@ -65,8 +65,11 @@ export default function DiaryTable({ entries, onUpdate }: DiaryTableProps) {
                   </SelectTrigger>
                   <SelectContent>
                     {SUBJECTS.map((subject) => (
-                      <SelectItem key={subject} value={subject}>
-                        {subject}
+                      <SelectItem key={subject.name} value={subject.name}>
+                        <div className="flex items-center gap-2">
+                           <subject.Icon className="h-4 w-4 text-muted-foreground" />
+                           <span>{subject.name}</span>
+                        </div>
                       </SelectItem>
                     ))}
                   </SelectContent>
