@@ -28,8 +28,8 @@ export async function askQuestion(input: AskQuestionInput): Promise<AskQuestionO
 
 const askQuestionPrompt = ai.definePrompt({
   name: 'askQuestionPrompt',
-  input: AskQuestionInputSchema,
-  output: AskQuestionOutputSchema,
+  input: {schema: AskQuestionInputSchema},
+  output: {schema: AskQuestionOutputSchema},
   prompt: `You are a helpful assistant. Answer the following question: {{{question}}}`,
 });
 
