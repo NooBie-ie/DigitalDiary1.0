@@ -189,3 +189,15 @@
     transform: scale(1);
   }
 }
+
+/* Gyro Button Effect */
+@property --x {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --y {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}

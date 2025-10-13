@@ -33,19 +33,65 @@ const buttonVariants = cva(
   }
 )
 
+const gyroButtonVariants = cva(
+  "relative overflow-hidden transition-[transform] duration-300 ease-out [transform:perspective(800px)] will-change-transform",
+  {
+    variants: {
+      gyro: {
+        true: `
+          hover:[transform:perspective(800px)_rotateX(var(--y,0))_rotateY(var(--x,0))_scale3d(1.05,1.05,1.05)]
+          
+          before:absolute before:inset-0 before:content-[''] before:bg-[radial-gradient(40%_60%_at_calc(var(--x-px,0)*1px)_calc(var(--y-px,0)*1px),theme(colors.white/20%),transparent)] before:opacity-0 before:transition-[opacity] before:duration-500 hover:before:opacity-100
+          
+          dark:before:bg-[radial-gradient(40%_60%_at_calc(var(--x-px,0)*1px)_calc(var(--y-px,0)*1px),theme(colors.white/10%),transparent)]
+        `,
+      },
+    },
+  }
+)
+
+
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean
+  asChild?: boolean,
+  gyro?: boolean,
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, gyro = true, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
+    const internalRef = React.useRef<HTMLButtonElement>(null)
+    React.useImperativeHandle(ref, () => internalRef.current as HTMLButtonElement);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (!internalRef.current || !gyro) return;
+      const rect = internalRef.current.getBoundingClientRect()
+      const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2)
+      const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / -2)
+      
+      const xPx = e.clientX - rect.left;
+      const yPx = e.clientY - rect.top;
+
+      internalRef.current.style.setProperty('--x', `${x * 10}deg`)
+      internalRef.current.style.setProperty('--y', `${y * 10}deg`)
+      internalRef.current.style.setProperty('--x-px', `${xPx}`)
+      internalRef.current.style.setProperty('--y-px', `${yPx}`)
+    }
+
+    const handleMouseLeave = () => {
+      if (!internalRef.current || !gyro) return;
+      internalRef.current.style.setProperty('--x', `0deg`)
+      internalRef.current.style.setProperty('--y', `0deg`)
+    }
+
+
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
+        className={cn(buttonVariants({ variant, size, className }), gyroButtonVariants({ gyro }))}
+        ref={internalRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         {...props}
       />
     )
