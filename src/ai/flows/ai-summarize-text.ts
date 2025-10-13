@@ -29,7 +29,7 @@ export async function summarizeText(input: SummarizeTextInput): Promise<Summariz
 
 const summarizeTextPrompt = ai.definePrompt({
   name: 'summarizeTextPrompt',
-  input: {schema: TextInputSchema},
+  input: {schema: SummarizeTextInputSchema},
   output: {schema: SummarizeTextOutputSchema},
   prompt: `Summarize the following text: {{{text}}}`,
 });
