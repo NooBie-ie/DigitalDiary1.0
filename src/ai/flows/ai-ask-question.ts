@@ -30,7 +30,7 @@ const askQuestionPrompt = ai.definePrompt({
   name: 'askQuestionPrompt',
   input: {schema: AskQuestionInputSchema},
   output: {schema: AskQuestionOutputSchema},
-  prompt: `You are a helpful assistant. Answer the following question: {{{question}}}`,
+  prompt: `You are a helpful assistant. Answer the following question: {{{question}}}. Format the output as a JSON object with a single key "answer".`,
 });
 
 const askQuestionFlow = ai.defineFlow(
